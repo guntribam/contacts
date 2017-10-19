@@ -1,21 +1,29 @@
 import React from 'react';
 
-const ContactList = (props) =>
-    <ul>
-        {props.contacts.map((person, index) => <li key={index}>{person.name}</li>)}
-    </ul>
+import ListContacts from './components/ListContacts';
 
-export default () =>
-    <div className="App">
-        <ContactList contacts={[
-            {name:'A'},
-            {name:'B'},
-            {name:'C'}
-        ]}/>
-        <ContactList contacts={[
-            {name:'D'},
-            {name:'E'},
-            {name:'F'}
-        ]}/>
-    </div>
-
+export default () => {
+    const state = {
+        contacts: [
+            {
+                "id": "ryan",
+                "name": "Ryan Florence",
+                "email": "ryan@reacttraining.com",
+                "avatarURL": "http://localhost:5001/ryan.jpg"
+            },
+            {
+                "id": "michael",
+                "name": "Michael Jackson",
+                "email": "michael@reacttraining.com",
+                "avatarURL": "http://localhost:5001/michael.jpg"
+            },
+            {
+                "id": "tyler",
+                "name": "Tyler McGinnis",
+                "email": "tyler@reacttraining.com",
+                "avatarURL": "http://localhost:5001/tyler.jpg"
+            }
+        ]
+    }
+    return <div> <ListContacts contacts={state.contacts}/> </div>
+}
