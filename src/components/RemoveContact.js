@@ -1,3 +1,7 @@
 import React from 'react';
 
-export default () => <button className='contact-remove' />
+export default (props) => {
+    handleClick = () => props.onDeleteContact()
+
+    return <button className='contact-remove' onClick={handleClick}/>
+}

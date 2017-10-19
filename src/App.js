@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {Component} from 'react';
 
 import ListContacts from './components/ListContacts';
 
-export default () => {
-    const state = {
+export default class App extends Component {
+    state = {
         contacts: [
             {
                 "id": "ryan",
@@ -25,5 +25,14 @@ export default () => {
             }
         ]
     }
-    return <div> <ListContacts contacts={state.contacts}/> </div>
+
+    removeContact = (contact) =>
+        this.setState(state => ({
+            contacts: state.contacts.filter(c => c.id !== contact.id)
+        }))
+
+    render () {
+        return <div><ListContacts onDeleteContact={this.removeContact} contacts={this.state.contacts}/></div>
+    }
+
 }

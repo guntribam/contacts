@@ -3,9 +3,9 @@ import Avatar from "./Avatar";
 import Details from "./Details";
 import RemoveContact from "./RemoveContact";
 
-export default ({ contact }) =>
+export default ({ contact, onDeleteContact }) =>
     <li className='contact-list-item'>
         <Avatar avatarURL={contact.avatarURL} />
         <Details name={contact.name} email={contact.email} />
-        <RemoveContact />
+        <RemoveContact onClick={onDeleteContact(contact.id)} />
     </li>
