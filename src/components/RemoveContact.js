@@ -1,7 +1,6 @@
 import React from 'react';
 
-export default (props) => {
-    handleClick = () => props.onDeleteContact()
+const RemoveContact = ({contact, onDeleteContact}) =>
+    <button className='contact-remove' onClick={() => onDeleteContact(contact)}/>
 
-    return <button className='contact-remove' onClick={handleClick}/>
-}
+export default RemoveContact;

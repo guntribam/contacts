@@ -1,38 +1,38 @@
-import React, {Component} from 'react';
-
+import React from 'react';
 import ListContacts from './components/ListContacts';
+import CreateContact from "./components/CreateContact";
+import * as ContactsAPI from './utils/ContactsAPI';
 
-export default class App extends Component {
+
+export default class App extends React.Component {
     state = {
-        contacts: [
-            {
-                "id": "ryan",
-                "name": "Ryan Florence",
-                "email": "ryan@reacttraining.com",
-                "avatarURL": "http://localhost:5001/ryan.jpg"
-            },
-            {
-                "id": "michael",
-                "name": "Michael Jackson",
-                "email": "michael@reacttraining.com",
-                "avatarURL": "http://localhost:5001/michael.jpg"
-            },
-            {
-                "id": "tyler",
-                "name": "Tyler McGinnis",
-                "email": "tyler@reacttraining.com",
-                "avatarURL": "http://localhost:5001/tyler.jpg"
-            }
-        ]
+        screen: 'list', //list, create
+        contacts: []
     }
 
-    removeContact = (contact) =>
-        this.setState(state => ({
+    componentDidMount() {
+        ContactsAPI.getAll().then(contacts => this.setState({contacts}))
+    }
+
+    removeContact = (contact) => {
+        this.setState((state) => ({
             contacts: state.contacts.filter(c => c.id !== contact.id)
         }))
+        ContactsAPI.remove(contact)
+    }
 
-    render () {
-        return <div><ListContacts onDeleteContact={this.removeContact} contacts={this.state.contacts}/></div>
+    render() {
+        return <div>
+            {this.state.screen === 'list' && (
+                <ListContacts
+                    onDeleteContact={this.removeContact}
+                    contacts={this.state.contacts}
+                    onNavigate={() => this.setState({screen:'create'})}/>
+            )}
+            {this.state.screen === 'create' && (
+                <CreateContact/>
+            )}
+        </div>
     }
 
 }
